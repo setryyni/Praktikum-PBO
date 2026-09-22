@@ -1,60 +1,64 @@
 # PawCare - Sistem Layanan Perawatan Hewan Peliharaan
 
-Program ini merupakan implementasi konsep Pemrograman Berorientasi Objek (PBO) berupa sistem sederhana untuk mengelola data hewan peliharaan, layanan yang ditawarkan, serta transaksi pemesanan layanan.
+Program ini dibuat buat latihan OOP di Python, ceritanya sistem sederhana buat catat data hewan peliharaan, layanan yang ditawarin, sama transaksi pemesanan layanannya.
 
 ## Struktur Class
 
-Program terdiri atas tiga class utama yang saling berinteraksi melalui objek, tanpa menggunakan pewarisan (inheritance).
+Ada 3 class utama, semuanya berdiri sendiri (gak pakai inheritance), tapi saling nyambung lewat objek satu sama lain.
 
 ### 1. Hewan
-Menyimpan data hewan peliharaan yang terdaftar.
+Nyimpen data hewan yang terdaftar di klinik.
 
 - Atribut kelas: `total_hewan`, `nama_klinik`, `jenis_terdaftar`
 - Atribut instance (public): `nama`, `jenis`, `pemilik`
 - Atribut instance (private): `__umur`, `__berat`
-- Property: `umur` dan `berat`, masing-masing dengan getter dan setter yang memvalidasi nilai tidak boleh negatif (berat juga tidak boleh nol)
-- Instance method: `info()` menampilkan data hewan
-- Class method: `dari_dict()` sebagai factory method untuk membuat objek `Hewan` dari data berbentuk dictionary
-- Static method: `validasi_jenis()` mengecek apakah jenis hewan terdaftar di klinik
+- Property `umur` dan `berat` punya setter yang nolak kalau nilainya negatif (berat juga gak boleh 0)
+- Method `info()` buat nampilin data hewannya
+- Classmethod `dari_dict()` buat bikin objek `Hewan` langsung dari dictionary
+- Staticmethod `validasi_jenis()` buat ngecek jenis hewannya kedaftar apa nggak
 
 ### 2. LayananHewan
-Menyimpan data layanan yang tersedia (perawatan, penitipan, grooming, vaksinasi).
+Nyimpen data layanan yang tersedia, ada Perawatan, Penitipan, sama Vaksinasi.
 
 - Atribut kelas: `total_layanan`, `biaya_admin`, `kategori_tersedia`
 - Atribut instance (public): `nama_layanan`, `kategori`
 - Atribut instance (private): `__harga`
-- Property: `harga` dengan setter yang memvalidasi harga harus lebih dari nol
-- Instance method: `tampilkan()` menampilkan detail layanan
-- Class method: `ubah_biaya_admin()` mengubah atribut kelas `biaya_admin` yang berlaku untuk semua transaksi
-- Static method: `validasi_kategori()` mengecek apakah kategori layanan valid
+- Property `harga` setternya nolak kalau harganya 0 atau minus
+- Method `tampilkan()` buat nampilin detail layanan
+- Classmethod `ubah_biaya_admin()` buat ganti biaya admin yang berlaku ke semua transaksi
+- Staticmethod `validasi_kategori()` buat ngecek kategorinya valid apa nggak
 
 ### 3. Transaksi
-Menghubungkan objek `Hewan` dan `LayananHewan` dalam satu pemesanan.
+Nyambungin objek `Hewan` sama `LayananHewan` jadi satu pemesanan.
 
 - Atribut kelas: `total_transaksi`, `status_tersedia`, `nama_platform`
 - Atribut instance (public): `id_transaksi`, `hewan`, `layanan`, `status`
-- Atribut instance (private): `__total_bayar` (dihitung otomatis dari harga layanan ditambah biaya admin)
-- Property: `total_bayar` dengan setter yang memvalidasi nilai tidak boleh negatif
-- Instance method: `ubah_status()` mengubah status transaksi setelah divalidasi, dan `struk()` menampilkan ringkasan transaksi
-- Class method: `batalkan()` membatalkan sebuah objek transaksi
-- Static method: `validasi_status()` mengecek apakah status yang dimasukkan termasuk status yang dikenal sistem
+- Atribut instance (private): `__total_bayar`, dihitung otomatis dari harga layanan + biaya admin
+- Property `total_bayar` setternya nolak kalau nilainya minus
+- Method `ubah_status()` buat ganti status transaksi (udah divalidasi dulu), sama `struk()` buat nampilin ringkasan transaksinya
+- Classmethod `batalkan()` buat batalin satu transaksi
+- Staticmethod `validasi_status()` buat ngecek statusnya valid apa nggak
 
-## Cara Menjalankan
+Oiya, status transaksinya sengaja dibikin agak absurd biar gak monoton: `"Menunggu.... (sabar.)"`, `"Diproses boskyuh"`, `"Selesai yeay!"`, sama `"Dibatalkan"`. Jadi kalau manggil `ubah_status()`, tulisan statusnya harus persis sama kayak yang ada di list itu.
+
+## Cara Jalanin
 
 ```bash
-python PT1_Setriyani_2509106039.py
+python nama_file_kalian.py
 ```
 
-Seluruh proses pengujian sudah ditulis di bagian `if __name__ == "__main__":` sehingga cukup dijalankan langsung tanpa input manual.
+(Sesuaikan sama nama file kalian sendiri ya, karena tiap orang biasanya beda format nama filenya.)
 
-## Panduan Pengujian
+Semua contoh pemakaiannya udah ditulis di bagian `if __name__ == "__main__":`, jadi tinggal run aja gak perlu input manual apa-apa.
 
-Saat dijalankan, program akan menampilkan secara berurutan:
+## Panduan Ngetes
 
-1. **Data awal** - dua objek `Hewan` (satu dibuat lewat konstruktor biasa, satu lewat `dari_dict()`), dua objek `LayananHewan`, dan dua objek `Transaksi`.
-2. **Uji setter valid** - mengubah umur kucing menjadi 3 dan harga grooming menjadi 80000, nilai baru berhasil tersimpan.
-3. **Uji setter tidak valid** - mencoba mengubah umur menjadi -5, berat menjadi 0, dan harga menjadi -1000. Setiap percobaan ini ditolak dan program mencetak pesan peringatan tanpa mengubah nilai aslinya.
-4. **Uji instance method** - `ubah_status()` dipanggil dengan status valid (`"Selesai"`) dan status tidak dikenal (`"Terbang"`) untuk membandingkan hasilnya.
-5. **Uji class method** - `ubah_biaya_admin()` mengubah biaya admin untuk seluruh transaksi baru, dan `batalkan()` membatalkan transaksi yang sudah ada.
-6. **Uji static method** - `validasi_jenis()`, `validasi_kategori()`, dan `validasi_status()` dipanggil langsung dari class tanpa membuat objek.
-7. **Atribut kelas** - dicetak di bagian akhir untuk menunjukkan bahwa `total_hewan`, `total_layanan`, dan `total_transaksi` bertambah otomatis setiap ada objek baru.
+Pas dijalanin, programnya bakal nampilin berurutan:
+
+1. **Data awal** - dua objek `Hewan` (satu dibikin lewat constructor biasa, satu lagi lewat `dari_dict()`), dua objek `LayananHewan`, dan dua objek `Transaksi`.
+2. **Setter yang valid** - umur kucing diganti jadi 3 sama harga perawatan diganti jadi 80000, keduanya berhasil kesimpen.
+3. **Setter yang gak valid** - dicoba ganti umur jadi -5, berat jadi 0, sama harga jadi -1000. Semuanya ditolak dan programnya nge-print pesan error, nilainya tetep yang lama.
+4. **Ubah status transaksi** - dites pakai status yang bener (`"Selesai yeay!"`) sama status ngasal (`"Terbang"`) buat liat bedanya.
+5. **Classmethod** - `ubah_biaya_admin()` buat ganti biaya admin ke semua transaksi baru, sama `batalkan()` buat batalin transaksi yang udah ada.
+6. **Staticmethod** - `validasi_jenis()`, `validasi_kategori()`, sama `validasi_status()` dipanggil langsung dari classnya, gak perlu bikin objek dulu.
+7. **Atribut kelas** - di bagian akhir keliatan `total_hewan`, `total_layanan`, sama `total_transaksi` naik otomatis tiap kali ada objek baru.
