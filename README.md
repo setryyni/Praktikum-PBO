@@ -44,7 +44,7 @@ Oiya, status transaksinya sengaja dibikin agak absurd biar gak monoton: `"Menung
 ## Cara Jalanin
 
 ```bash
-python nama_file_kalian.py
+python PT1_Setriyani_2509106039.py
 ```
 
 (Sesuaikan sama nama file kalian sendiri ya, karena tiap orang biasanya beda format nama filenya.)
