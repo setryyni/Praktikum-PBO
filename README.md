@@ -42,7 +42,7 @@ Menghubungkan objek `Hewan` dan `LayananHewan` dalam satu pemesanan.
 ## Cara Menjalankan
 
 ```bash
-python pawcare.py
+python PT1_Setriyani_2509106039.py
 ```
 
 Seluruh proses pengujian sudah ditulis di bagian `if __name__ == "__main__":` sehingga cukup dijalankan langsung tanpa input manual.
