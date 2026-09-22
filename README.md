@@ -4,7 +4,7 @@ Program ini dibuat buat latihan OOP di Python, ceritanya sistem sederhana buat c
 
 ## Struktur Class
 
-Ada 3 class utama, semuanya berdiri sendiri (gak pakai inheritance), tapi saling nyambung lewat objek satu sama lain.
+Ada 3 class utama, semuanya berdiri sendiri, tapi saling nyambung lewat objek satu sama lain.
 
 ### 1. Hewan
 Nyimpen data hewan yang terdaftar di klinik.
