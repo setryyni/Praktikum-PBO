@@ -44,7 +44,7 @@ Oiya, status transaksinya sengaja dibikin agak absurd biar gak monoton: `"Menung
 ## Cara Jalanin
 
 ```bash
-python PT1_Setriyani_2509106039.py
+python PawCarePart1.py
 ```
 
 Semua contoh pemakaiannya udah ditulis di bagian `if __name__ == "__main__":`, jadi tinggal run aja gak perlu input manual apa-apa.
